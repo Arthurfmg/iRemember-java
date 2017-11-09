@@ -5,7 +5,7 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	
-	    <title>Dashboard Template for Bootstrap</title>
+	    <title>iRemember - Séries</title>
 	
 	    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	    <script src="js/jquery-3.2.1.min.js"></script>
@@ -82,13 +82,13 @@
 						<label>Descrição</label> 
 						<input type="text" class="form-control" name="descricao" />
 						<label>Nº Capítulos:</label> 
-						<input type="text" class="form-control" name="nCapitulos" />
+						<input type="text" class="form-control" name="numeroCapitulos" />
 						<label>Nº Temporadas:</label> 
-						<input type="text" class="form-control" name="nTemporadas" />
+						<input type="text" class="form-control" name="numeroTemporadas" />
 						<label>Nº do último capítulo assistido:</label> 
-						<input type="text" class="form-control" name="nUltimoCapituloAssistido" />
+						<input type="text" class="form-control" name="numeroCapituloParou" />
 						<label>Nº da última temporada assistida:</label> 
-						<input type="text" class="form-control" name="nUltimaTemporadaAssistida" /> 
+						<input type="text" class="form-control" name="numeroTemporadaParou" /> 
 						<br />					
 							<input type="button" class="btn btn-primary" value="Gravar" onclick="adicionarSerie();" />
 					</div>
@@ -134,7 +134,7 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		      	<form id="editarColecaoForm">
+		      	<form id="editarSerieForm">
 					<div class="form-group">
 						<label>Id</label> 
 						<input type="text" class="form-control" id="editarId" name="id" readonly/> 
@@ -142,19 +142,14 @@
 						<input type="text" class="form-control" id="editarNome" name="nome" /> 
 						<label>Descrição</label> 
 						<input type="text" class="form-control" id="editarDescricao" name="descricao" /> 
-					
-						<label>Nome</label> 
-						<input type="text" class="form-control" name="nome" /> 
-						<label>Descrição</label> 
-						<input type="text" class="form-control" name="descricao" />
 						<label>Nº Capítulos:</label> 
-						<input type="text" class="form-control" name="nCapitulos" />
+						<input type="text" class="form-control" id="editarnCapitulos" name="numeroCapitulos" />
 						<label>Nº Temporadas:</label> 
-						<input type="text" class="form-control" name="nTemporadas" />
+						<input type="text" class="form-control" id="editarnTemporadas" name="numeroTemporadas" />
 						<label>Nº do último capítulo assistido:</label> 
-						<input type="text" class="form-control" name="nUltimoCapituloAssistido" />
+						<input type="text" class="form-control" id="editarnUltimoCapituloAssistido" name="numeroCapituloParou" />
 						<label>Nº da última temporada assistida:</label> 
-						<input type="text" class="form-control" name="nUltimaTemporadaAssistida" /> 
+						<input type="text" class="form-control" id="editarnUltimaTemporadaAssistida" name="numeroTemporadaParou" /> 
 						
 					</div>
 				</form>

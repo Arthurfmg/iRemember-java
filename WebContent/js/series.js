@@ -23,6 +23,7 @@ function listarSeries() {
 			alert("Erro ao carregar séries do usuário.");
 		}
 	});
+	
 }
 
 
@@ -41,9 +42,13 @@ function segueLinkSerie(link){
 
 function adicionaSerieNovaAoGrid(serie) {
    var data = 	"<tr>"
-		      	+ "<td width='5%'>" + serie.id + "</td>"
-		      	+ "<td width='40%'>" + serie.nome + "</td>"
-		      	+ "<td width='45%'>" + serie.descricao + "</td>"
+		      	+ "<td>" + serie.id + "</td>"
+		      	+ "<td>" + serie.nome + "</td>"
+		      	+ "<td>" + serie.descricao + "</td>"
+		      	+ "<td>" + serie.numeroCapitulos + "</td>"
+		      	+ "<td>" + serie.numeroTemporadas + "</td>"
+		      	+ "<td>" + serie.numeroCapituloParou + "</td>"
+		      	+ "<td>" + serie.numeroTemporadaParou + "</td>"
 		      	+ "<td width='5%'><img src='icons/pencil.png' width='20px' height='20px' style='cursor: pointer' data-toggle='modal' data-target='#editarModal' onClick='carregarSerieParaEdicao(\""+serie.nome+"\")'></td>"
 		      	+ "<td width='5%'><img src='icons/sign-delete-icon.png' width='20px' height='20px' style='cursor: pointer' onClick='excluir(\""+serie.nome+"\")'></td>"
 		      + "</tr>";
@@ -56,8 +61,9 @@ function adicionarSerie(){
 	
 	var data = $("#novaSerieForm").serializeJSON();
 	data = "{\"serie\":" + JSON.stringify(data) + "}";
+	//alert(data);
 	
-	var parse = JSON.parse(data);
+	//var parse = JSON.parse(data);
 	
 	$(".square").show();
 	
@@ -110,6 +116,10 @@ function carregarSerieParaEdicao(nome) {
 	    	  $("#editarId").val(serie.id);
 	    	  $("#editarNome").val(serie.nome);
 	    	  $("#editarDescricao").val(serie.descricao);
+	    	  $("#editarnCapitulos").val(serie.numeroCapitulos);
+	    	  $("#editarnTemporadas").val(serie.numeroTemporadas);
+	    	  $("#editarnUltimoCapituloAssistido").val(serie.numeroCapituloParou);
+	    	  $("#editarnUltimaTemporadaAssistida").val(serie.numeroTemporadaParou);
 	    	  
 	    	  $("#editarModalNomeSerie").html(serie.nome);
 	      },

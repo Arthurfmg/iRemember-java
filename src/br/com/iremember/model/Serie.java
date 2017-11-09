@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name="Serie.buscaPorNome",
     			query="SELECT s FROM Serie s where s.nome = :nome "),
     @NamedQuery(name="Serie.buscaPorUsuario",
-                query="SELECT s FROM Serie s WHERE s.usuario = :usuario_id"),
+                query="SELECT s FROM Serie s WHERE s.usuario = :usuario"),
 })
 
 @Entity

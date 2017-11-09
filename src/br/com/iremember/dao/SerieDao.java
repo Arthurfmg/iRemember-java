@@ -5,6 +5,7 @@ import javax.persistence.Query;
 
 import br.com.iremember.model.Colecao;
 import br.com.iremember.model.Serie;
+import br.com.iremember.model.rest.Series;
 
 public class SerieDao extends JpaDaoBase<Serie> implements IDao<Serie>{
 	public Serie buscaPorNome(String nome) {
@@ -15,11 +16,11 @@ public class SerieDao extends JpaDaoBase<Serie> implements IDao<Serie>{
 		return null;
 	}
 	
-	public Serie buscaPorUsuario(Long usuario_id) {
-		Query query = em.createNamedQuery("Serie.buscaPorUsuario").setParameter("usuario_id", usuario_id);
+	public Series buscaPorUsuario(Long usuario_id) {
+		Query query = em.createNamedQuery("Serie.buscaPorUsuario").setParameter("usuario", new UsuarioDao().buscaPorld(usuario_id));
 		List<Serie> series = query.getResultList();
 		if (!series.isEmpty())
-			return series.get(0);
+			return new Series(series);
 		return null;
 	}
 	

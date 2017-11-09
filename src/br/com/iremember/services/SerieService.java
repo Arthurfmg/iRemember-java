@@ -27,6 +27,7 @@ import javax.ws.rs.core.UriBuilder;
 import br.com.iremember.dao.ColecaoDao;
 import br.com.iremember.dao.SerieDao;
 import br.com.iremember.dao.SerieDaoFactory;
+import br.com.iremember.dao.UsuarioDao;
 import br.com.iremember.model.Serie;
 import br.com.iremember.model.rest.Colecoes;
 import br.com.iremember.model.rest.Series;
@@ -55,8 +56,10 @@ public class SerieService {
 	@GET
 	@Path("/usuario/{usuario_id}")
 	public Series listarSeriesDoUsuario(@QueryParam("usuario_id") Long usuario_id) {
-		List<Serie> series = (List<Serie>) new SerieDao().buscaPorUsuario(usuario_id);
-		return new Series(series);
+		//@SuppressWarnings("unchecked")
+		//List<Serie> series = (List<Serie>) new SerieDao().buscaPorUsuario(usuario_id);
+		//return new Series(series);
+		return serieDao.buscaPorUsuario(1l);
 	}
 
 	@GET
@@ -66,9 +69,11 @@ public class SerieService {
 	}
 
 	@POST
-	public Response criarSerie(Serie serie) {
+	@Path("usuario/{usuario_id}")
+	public Response criarSerie(@QueryParam("usuario_id") Long usuario_id, Serie serie) {
 		
 		try {
+			serie.setUsuario(new UsuarioDao().buscaPorld(1l));
 			serieDao.salva(serie);
 		//} catch (SerieJaExisteException e) {
 		} catch (Exception e) {
@@ -81,11 +86,18 @@ public class SerieService {
 		return Response.created(uri).entity(serie).build();
 	}
 
-	@PUT
+	/*@PUT
 	@Path("{nome}")
 	public void atualizarSerie(@PathParam("nome") String nome, Serie serie) {
 		//encontreSerie(nome);
 		serie.setNome(nome);
+		serieDao.atualiza(serie);
+	}*/
+	
+	@PUT
+	public void atualizarSerie(Serie serie) {
+		serie.setUsuario(new UsuarioDao().buscaPorld(1l));
+		
 		serieDao.atualiza(serie);
 	}
 
