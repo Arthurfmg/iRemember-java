@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,7 +14,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 
-@NamedQuery(name="Unidade.buscaPorNome", query="SELECT u FROM Unidade u where u.nome = :nome ") 
+@NamedQueries({
+    @NamedQuery(name="Unidade.buscaPorNome",
+    			query="SELECT u FROM Unidade u where u.nome = :nome "),
+    @NamedQuery(name="Unidade.buscaPorColecao",
+                query="SELECT u FROM Unidade u WHERE u.colecao = :colecao"),
+}) 
+
 @Entity
 public class Unidade implements IBean {
 	@Id
@@ -112,5 +119,13 @@ public class Unidade implements IBean {
 
 	public void setNumero(Integer numero) {
 		this.numero = numero;
+	}
+
+	public Colecao getColecao() {
+		return colecao;
+	}
+
+	public void setColecao(Colecao colecao) {
+		this.colecao = colecao;
 	}
 }

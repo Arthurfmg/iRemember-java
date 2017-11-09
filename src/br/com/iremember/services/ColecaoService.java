@@ -53,10 +53,17 @@ public class ColecaoService {
 	}
 	
 	@GET
+	@Path("/ultimas/")
+	public Colecoes listarUltimasColecoes() {
+		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
+		return colecaoDao.buscaUltimasColecoes();
+	}
+	
+	@GET
 	@Path("/usuario/{id}")
 	public Colecoes listarColecoesDoUsuario(@QueryParam("id") Long id) {
 		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
-		return new ColecaoDao().buscaPorUsuario(1l);
+		return colecaoDao.buscaPorUsuario(1l);
 	}
 
 	@GET

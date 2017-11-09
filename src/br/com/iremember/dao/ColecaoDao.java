@@ -14,6 +14,14 @@ public class ColecaoDao extends JpaDaoBase<Colecao> implements IDao<Colecao>{
 		return null;
 	}
 	
+	public Colecoes buscaUltimasColecoes() {		
+		Query query = em.createNamedQuery("Colecao.buscaUltimasColecoes");
+		List<Colecao> colecoes = query.getResultList();
+		if (!colecoes.isEmpty())
+			return new Colecoes(colecoes);
+		return null;
+	}
+	
 	public Colecoes buscaPorUsuario(Long usuario_id) {		
 		Query query = em.createNamedQuery("Colecao.buscaPorUsuario").setParameter("usuario", new UsuarioDao().buscaPorld(usuario_id));
 		List<Colecao> colecoes = query.getResultList();

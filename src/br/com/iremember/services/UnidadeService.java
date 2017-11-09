@@ -23,9 +23,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response.Status;
+
+import br.com.iremember.dao.ColecaoDao;
 import br.com.iremember.dao.UnidadeDao;
 import br.com.iremember.dao.UnidadeDaoFactory;
+import br.com.iremember.dao.UsuarioDao;
+import br.com.iremember.model.Colecao;
 import br.com.iremember.model.Unidade;
+import br.com.iremember.model.rest.Colecoes;
 import br.com.iremember.model.rest.Unidades;
 
 @Path("/unidades")
@@ -38,7 +43,14 @@ public class UnidadeService {
 	private UnidadeDao unidadeDao = UnidadeDaoFactory.getInstance().getUnidadeDao();
 
 	private static final int TAMANHO_PAGINA = 10;
-
+	
+	@GET
+	@Path("/colecao/{id}")
+	public Unidades listarUnidadesDaColecao(@QueryParam("id") Long id) {
+		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
+		return new UnidadeDao().buscaPorColecao(15l);
+	}
+	
 	@GET
 	@Path("{nome}")
 	public Unidade encontreUnidade(@PathParam("nome") String nomeDaUnidade) {
@@ -57,9 +69,12 @@ public class UnidadeService {
 	}
 
 	@POST
-	public Response criarUnidade(Unidade unidade) {
+	@Path("/colecao/{colecao_id}")
+	public Response criarUnidade(@QueryParam("colecao_id") Long colecao_id, Unidade unidade) {
 		
 		try {
+			//unidadeDao.salva(unidade);
+			unidade.setColecao(new ColecaoDao().buscaPorld(15l));
 			unidadeDao.salva(unidade);
 		//} catch (UnidadeJaExisteException e) {
 		} catch (Exception e) {
@@ -72,11 +87,19 @@ public class UnidadeService {
 		return Response.created(uri).entity(unidade).build();
 	}
 
-	@PUT
+	/*@PUT
 	@Path("{nome}")
 	public void atualizarUnidade(@PathParam("nome") String nome, Unidade unidade) {
 		//encontreUnidade(nome);
 		unidade.setNome(nome);
+		unidadeDao.atualiza(unidade);
+	}*/
+	@PUT
+	public void atualizarUnidade(Unidade unidade) {
+		//encontreUnidade(nome);
+		//unidade.setNome(nome);
+		
+		unidade.setColecao(new ColecaoDao().buscaPorld(15l));
 		unidadeDao.atualiza(unidade);
 	}
 
