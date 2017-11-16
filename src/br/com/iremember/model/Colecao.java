@@ -26,7 +26,7 @@ import br.com.iremember.model.IBean;
     @NamedQuery(name="Colecao.buscaPorNome",
     			query="SELECT c FROM Colecao c where c.nome = :nome "),
     @NamedQuery(name="Colecao.buscaUltimasColecoes",
-				query="SELECT c FROM Colecao c "),
+				query="SELECT u FROM Unidade u INNER JOIN u.colecao "),
     @NamedQuery(name="Colecao.buscaPorUsuario",
                 query="SELECT c FROM Colecao c WHERE c.usuario = :usuario Order by c.nome"),
 }) 

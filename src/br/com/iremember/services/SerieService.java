@@ -30,7 +30,9 @@ import br.com.iremember.dao.SerieDaoFactory;
 import br.com.iremember.dao.UsuarioDao;
 import br.com.iremember.model.Serie;
 import br.com.iremember.model.rest.Colecoes;
+import br.com.iremember.model.rest.ColecoesUnidades;
 import br.com.iremember.model.rest.Series;
+import br.com.iremember.model.rest.SeriesResumos;
 
 @Path("/series")
 @Consumes({ MediaType.TEXT_XML, MediaType.APPLICATION_XML,
@@ -60,6 +62,13 @@ public class SerieService {
 		//List<Serie> series = (List<Serie>) new SerieDao().buscaPorUsuario(usuario_id);
 		//return new Series(series);
 		return serieDao.buscaPorUsuario(1l);
+	}
+	
+	@GET
+	@Path("/resumos/")
+	public SeriesResumos listarSeriesResumos() {
+		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
+		return serieDao.buscaSeriesResumos();
 	}
 
 	@GET

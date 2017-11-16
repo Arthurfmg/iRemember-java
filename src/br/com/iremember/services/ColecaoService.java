@@ -30,6 +30,8 @@ import br.com.iremember.dao.ColecaoDaoFactory;
 import br.com.iremember.dao.UsuarioDao;
 import br.com.iremember.model.Colecao;
 import br.com.iremember.model.rest.Colecoes;
+import br.com.iremember.model.rest.ColecoesUnidades;
+import br.com.iremember.model.rest.Unidades;
 
 @Path("/colecoes")
 @Consumes({ MediaType.TEXT_XML, MediaType.APPLICATION_XML,
@@ -52,11 +54,17 @@ public class ColecaoService {
 		throw new WebApplicationException(Status.NOT_FOUND);
 	}
 	
-	@GET
+	/*@GET
 	@Path("/ultimas/")
-	public Colecoes listarUltimasColecoes() {
+	public Unidades listarUltimasColecoes() {
 		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
 		return colecaoDao.buscaUltimasColecoes();
+	}*/
+	@GET
+	@Path("/ultimas/")
+	public ColecoesUnidades listarUltimasColecoes() {
+		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
+		return colecaoDao.buscaUltimasColecoes2();
 	}
 	
 	@GET

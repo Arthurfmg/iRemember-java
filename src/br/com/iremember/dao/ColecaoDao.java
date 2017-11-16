@@ -2,8 +2,14 @@ package br.com.iremember.dao;
 
 import java.util.List;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import br.com.iremember.model.Colecao;
+import br.com.iremember.model.ColecaoUnidade;
+import br.com.iremember.model.Unidade;
 import br.com.iremember.model.rest.Colecoes;
+import br.com.iremember.model.rest.ColecoesUnidades;
+import br.com.iremember.model.rest.Unidades;
 
 public class ColecaoDao extends JpaDaoBase<Colecao> implements IDao<Colecao>{
 	public Colecao buscaPorNome(String nome) {
@@ -14,11 +20,22 @@ public class ColecaoDao extends JpaDaoBase<Colecao> implements IDao<Colecao>{
 		return null;
 	}
 	
-	public Colecoes buscaUltimasColecoes() {		
+	/*public Unidades buscaUltimasColecoes() {		
 		Query query = em.createNamedQuery("Colecao.buscaUltimasColecoes");
-		List<Colecao> colecoes = query.getResultList();
-		if (!colecoes.isEmpty())
-			return new Colecoes(colecoes);
+		List<Unidade> unidades = query.getResultList();
+		if (!unidades.isEmpty())
+			return new Unidades(unidades);
+		return null;
+	}*/
+	public ColecoesUnidades buscaUltimasColecoes2() {		
+		TypedQuery<ColecaoUnidade> consulta = em.createQuery(
+				"SELECT NEW br.com.iremember.model.ColecaoUnidade(c.nome, u.numero) FROM Unidade u INNER JOIN u.colecao c ", 
+				ColecaoUnidade.class
+				);
+		List<ColecaoUnidade> colecoesUnidades = consulta.getResultList();
+		
+		if (!colecoesUnidades.isEmpty())
+			return new ColecoesUnidades(colecoesUnidades);
 		return null;
 	}
 	

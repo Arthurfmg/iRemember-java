@@ -2,10 +2,11 @@ package br.com.iremember.dao;
 
 import java.util.List;
 import javax.persistence.Query;
-
-import br.com.iremember.model.Colecao;
+import javax.persistence.TypedQuery;
 import br.com.iremember.model.Serie;
+import br.com.iremember.model.SerieResumo;
 import br.com.iremember.model.rest.Series;
+import br.com.iremember.model.rest.SeriesResumos;
 
 public class SerieDao extends JpaDaoBase<Serie> implements IDao<Serie>{
 	public Serie buscaPorNome(String nome) {
@@ -29,5 +30,18 @@ public class SerieDao extends JpaDaoBase<Serie> implements IDao<Serie>{
 		Query query = em.createQuery("DELETE FROM Serie s WHERE s.nome = :nome ").setParameter("nome", nome);
 		query.executeUpdate();
 		em.getTransaction().commit();
+	}
+	
+	public SeriesResumos buscaSeriesResumos() {		
+		TypedQuery<SerieResumo> consulta = em.createQuery(
+				"SELECT NEW br.com.iremember.model.SerieResumo(s.nome, s.numeroTemporadaParou, s.numeroCapituloParou) FROM Serie s ", 
+				SerieResumo.class
+				);
+			
+		List<SerieResumo> seriesResumos = consulta.getResultList();
+		
+		if (!seriesResumos.isEmpty())
+			return new SeriesResumos(seriesResumos);
+		return null;
 	}
 }

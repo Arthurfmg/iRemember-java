@@ -46,6 +46,11 @@ public class Unidades {
 		return links;
 	}
 	
+	@XmlElement(name="colecoes")
+	public List<Unidade> getResumoColecao() {
+		return getUnidades();
+	}
+	
 	public void setLinks (List<Link> links) {
 		
 	}

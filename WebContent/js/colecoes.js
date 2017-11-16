@@ -3,7 +3,9 @@ var hostColecoes = "http://localhost:8080/iRemember/services/";
 function listarColecoes() {
 	$("#colecoesGrid").html("");
 	var usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
-		
+	
+	alert(usuarioLogado.id);
+	
 	$.ajax({		
 		url : hostColecoes + 'colecoes/usuario/' + usuarioLogado.id,
 		type : 'GET',
