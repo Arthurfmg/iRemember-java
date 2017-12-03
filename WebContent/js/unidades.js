@@ -125,7 +125,7 @@ function salvarAlteracoes(){
 	$(".square").show();
 			
 	$.ajax({
-	   url : hostUnidades + 'unidades/',
+	   url : hostUnidades + 'unidades/colecao/' + $("#colecao_id").val(),
 	   type : 'PUT',
 	   contentType : 'application/json',
 	   data : data,

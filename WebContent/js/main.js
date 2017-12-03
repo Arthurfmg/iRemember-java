@@ -15,8 +15,10 @@ function sair() {
 
 
 function listarDadosSeries(){	
+	var usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
+	
   $.ajax({
-      url : baseHost + 'services/series/resumos',
+      url : baseHost + 'services/series/resumos/' + usuarioLogado.id,
       type : 'GET',
       success : function(data) {
     	  var seriesResumos = data.seriesResumos.seriesresumos;
@@ -42,40 +44,52 @@ function listarDadosSeries(){
 
 
 function listarDadosColecoes(){	
+	var usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
+	
   $.ajax({
-      url : baseHost + 'services/colecoes/ultimas',
+      url : baseHost + 'services/colecoes/ultimas/' + usuarioLogado.id,
       type : 'GET',
       success : function(data) {
-    	  var colecoesUnidades = data.colecoesUnidades.colecoesunidades;
-    	      	  
-    	  if ($.isArray(colecoesUnidades)) {
-			   var colecaoAtual;
-			   var linha;
-
-			   for ( var i = 0; i < colecoesUnidades.length; i++) {
-				   var colecaoUnidade = colecoesUnidades[i];
-				   
-				   
-				   if(colecaoAtual != colecaoUnidade.colecaoNome){
-					   if(colecaoAtual != undefined){
-						   linha = linha.substr(0, (linha.length - 1));
-						   linha += '</td></tr>';
+    	  if(data != undefined){
+    		  
+	    	 
+	    	  
+	    	  var colecoesUnidades = data.colecoesUnidades.colecoesunidades;
+	    	      	  
+	    	 
+	    	  
+	    	  if ($.isArray(colecoesUnidades)) {
+	    			  
+					   var colecaoAtual;
+					   var linha;
+		
+					   for ( var i = 0; i < colecoesUnidades.length; i++) {
+						   var colecaoUnidade = colecoesUnidades[i];
 						   
-						   $("#colecoesUnidadesGrid").append(linha);
+						   
+						   if(colecaoAtual != colecaoUnidade.colecaoNome){
+							   if(colecaoAtual != undefined){
+								   linha = linha.substr(0, (linha.length - 1));
+								   linha += '</td></tr>';
+								   
+								   $("#colecoesUnidadesGrid").append(linha);
+							   }
+							   colecaoAtual = colecaoUnidade.colecaoNome;
+		
+							   linha = '<tr><td>' + colecaoAtual + '</td><td>Você possui as unidades: ';
+							   linha += colecaoUnidade.numero + ',';
+						   }else{
+							   linha += colecaoUnidade.numero + ',';
+						   }
 					   }
-					   colecaoAtual = colecaoUnidade.colecaoNome;
-
-					   linha = '<tr><td>' + colecaoAtual + '</td><td>Você possui as unidades: ';
-					   linha += colecaoUnidade.numero + ',';
-				   }else{
-					   linha += colecaoUnidade.numero + ',';
-				   }
-			   }
-			   
-			   linha = linha.substr(0, (linha.length - 1));
-			   linha += '</td></tr>';
-			   $("#colecoesUnidadesGrid").append(linha);
-			}
+					   
+					   linha = linha.substr(0, (linha.length - 1));
+					   linha += '</td></tr>';
+					   $("#colecoesUnidadesGrid").append(linha);
+				   
+	    		 
+				}
+    	  }
       },
       error : function(data) {
     	  alert("Erro ao listar últimas coleções.");

@@ -4,8 +4,6 @@ function listarColecoes() {
 	$("#colecoesGrid").html("");
 	var usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
 	
-	alert(usuarioLogado.id);
-	
 	$.ajax({		
 		url : hostColecoes + 'colecoes/usuario/' + usuarioLogado.id,
 		type : 'GET',
@@ -63,7 +61,7 @@ function adicionarColecao(){
 	var parse = JSON.parse(data);
 	
 	$(".square").show();
-	
+		
 	$.ajax({
 	   url : hostColecoes + 'colecoes/usuario/' + usuarioLogado.id,
 	   type : 'POST',
@@ -127,9 +125,11 @@ function salvarAlteracoes(){
 	data = "{\"colecao\":" + JSON.stringify(data) + "}";	
 	
 	$(".square").show();
+	
+	var usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
 			
 	$.ajax({
-	   url : hostColecoes + 'colecoes/',
+	   url : hostColecoes + 'colecoes/usuarios/' + usuarioLogado.id,
 	   type : 'PUT',
 	   contentType : 'application/json',
 	   data : data,

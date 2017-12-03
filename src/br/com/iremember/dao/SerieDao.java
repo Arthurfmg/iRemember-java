@@ -32,11 +32,11 @@ public class SerieDao extends JpaDaoBase<Serie> implements IDao<Serie>{
 		em.getTransaction().commit();
 	}
 	
-	public SeriesResumos buscaSeriesResumos() {		
+	public SeriesResumos buscaSeriesResumos(Long usuario_id) {		
 		TypedQuery<SerieResumo> consulta = em.createQuery(
-				"SELECT NEW br.com.iremember.model.SerieResumo(s.nome, s.numeroTemporadaParou, s.numeroCapituloParou) FROM Serie s ", 
+				"SELECT NEW br.com.iremember.model.SerieResumo(s.nome, s.numeroTemporadaParou, s.numeroCapituloParou) FROM Serie s Where s.usuario = :usuario", 
 				SerieResumo.class
-				);
+				).setParameter("usuario", new UsuarioDao().buscaPorld(usuario_id));
 			
 		List<SerieResumo> seriesResumos = consulta.getResultList();
 		

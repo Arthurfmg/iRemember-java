@@ -46,9 +46,9 @@ public class UnidadeService {
 	
 	@GET
 	@Path("/colecao/{id}")
-	public Unidades listarUnidadesDaColecao(@QueryParam("id") Long id) {
+	public Unidades listarUnidadesDaColecao(@PathParam("id") Long id) {
 		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
-		return new UnidadeDao().buscaPorColecao(15l);
+		return new UnidadeDao().buscaPorColecao(id);
 	}
 	
 	@GET
@@ -70,11 +70,11 @@ public class UnidadeService {
 
 	@POST
 	@Path("/colecao/{colecao_id}")
-	public Response criarUnidade(@QueryParam("colecao_id") Long colecao_id, Unidade unidade) {
+	public Response criarUnidade(@PathParam("colecao_id") Long colecao_id, Unidade unidade) {
 		
 		try {
 			//unidadeDao.salva(unidade);
-			unidade.setColecao(new ColecaoDao().buscaPorld(15l));
+			unidade.setColecao(new ColecaoDao().buscaPorld(colecao_id));
 			unidadeDao.salva(unidade);
 		//} catch (UnidadeJaExisteException e) {
 		} catch (Exception e) {
@@ -95,11 +95,9 @@ public class UnidadeService {
 		unidadeDao.atualiza(unidade);
 	}*/
 	@PUT
-	public void atualizarUnidade(Unidade unidade) {
-		//encontreUnidade(nome);
-		//unidade.setNome(nome);
-		
-		unidade.setColecao(new ColecaoDao().buscaPorld(15l));
+	@Path("/colecao/{colecao_id}")
+	public void atualizarUnidade(@PathParam("colecao_id") Long colecao_id, Unidade unidade) {		
+		unidade.setColecao(new ColecaoDao().buscaPorld(colecao_id));
 		unidadeDao.atualiza(unidade);
 	}
 

@@ -57,18 +57,18 @@ public class SerieService {
 	
 	@GET
 	@Path("/usuario/{usuario_id}")
-	public Series listarSeriesDoUsuario(@QueryParam("usuario_id") Long usuario_id) {
+	public Series listarSeriesDoUsuario(@PathParam("usuario_id") Long usuario_id) {
 		//@SuppressWarnings("unchecked")
 		//List<Serie> series = (List<Serie>) new SerieDao().buscaPorUsuario(usuario_id);
 		//return new Series(series);
-		return serieDao.buscaPorUsuario(1l);
+		return serieDao.buscaPorUsuario(usuario_id);
 	}
 	
 	@GET
-	@Path("/resumos/")
-	public SeriesResumos listarSeriesResumos() {
+	@Path("/resumos/{usuario_id}")
+	public SeriesResumos listarSeriesResumos(@PathParam("usuario_id") Long usuario_id) {
 		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
-		return serieDao.buscaSeriesResumos();
+		return serieDao.buscaSeriesResumos(usuario_id);
 	}
 
 	@GET
@@ -79,10 +79,10 @@ public class SerieService {
 
 	@POST
 	@Path("usuario/{usuario_id}")
-	public Response criarSerie(@QueryParam("usuario_id") Long usuario_id, Serie serie) {
+	public Response criarSerie(@PathParam("usuario_id") Long usuario_id, Serie serie) {
 		
 		try {
-			serie.setUsuario(new UsuarioDao().buscaPorld(1l));
+			serie.setUsuario(new UsuarioDao().buscaPorld(usuario_id));
 			serieDao.salva(serie);
 		//} catch (SerieJaExisteException e) {
 		} catch (Exception e) {
@@ -104,8 +104,9 @@ public class SerieService {
 	}*/
 	
 	@PUT
-	public void atualizarSerie(Serie serie) {
-		serie.setUsuario(new UsuarioDao().buscaPorld(1l));
+	@Path("/usuario/{usuario_id}")
+	public void atualizarSerie(@PathParam("usuario_id") Long usuario_id, Serie serie) {
+		serie.setUsuario(new UsuarioDao().buscaPorld(usuario_id));
 		
 		serieDao.atualiza(serie);
 	}

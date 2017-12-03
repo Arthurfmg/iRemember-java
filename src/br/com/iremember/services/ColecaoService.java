@@ -61,17 +61,16 @@ public class ColecaoService {
 		return colecaoDao.buscaUltimasColecoes();
 	}*/
 	@GET
-	@Path("/ultimas/")
-	public ColecoesUnidades listarUltimasColecoes() {
+	@Path("/ultimas/{usuario_id}")
+	public ColecoesUnidades listarUltimasColecoes(@PathParam("usuario_id") Long usuario_id) {
 		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
-		return colecaoDao.buscaUltimasColecoes2();
+		return colecaoDao.buscaUltimasColecoes2(usuario_id);
 	}
 	
 	@GET
 	@Path("/usuario/{id}")
-	public Colecoes listarColecoesDoUsuario(@QueryParam("id") Long id) {
-		//List<Colecao> colecoes = (List<Colecao>) new ColecaoDao().buscaPorUsuario(1l);
-		return colecaoDao.buscaPorUsuario(1l);
+	public Colecoes listarColecoesDoUsuario(@PathParam("id") Long id) {
+		return colecaoDao.buscaPorUsuario(id);
 	}
 
 	@GET
@@ -82,13 +81,11 @@ public class ColecaoService {
 
 	@POST
 	@Path("/usuario/{usuario_id}")
-	public Response criarColecao(@QueryParam("usuario_id") Long usuario_id, Colecao colecao) {
+	public Response criarColecao(@PathParam("usuario_id") Long usuario_id, Colecao colecao) {
 		
 		try {
-			//colecao.setUsuario(new UsuarioDao().buscaPorld(usuario_id));
-			colecao.setUsuario(new UsuarioDao().buscaPorld(1l));
+			colecao.setUsuario(new UsuarioDao().buscaPorld(usuario_id));
 			colecaoDao.salva(colecao);
-		//} catch (ColecaoJaExisteException e) {
 		} catch (Exception e) {
 			throw new WebApplicationException(Status.CONFLICT);
 		}
@@ -107,6 +104,7 @@ public class ColecaoService {
 		colecaoDao.atualiza(colecao);
 	}*/
 	
+	/*
 	@PUT
 	//@Path("/id/{nome}")
 	public void atualizarColecao(Colecao colecao) {
@@ -115,6 +113,14 @@ public class ColecaoService {
 		
 		colecao.setUsuario(new UsuarioDao().buscaPorld(1l));
 		
+		colecaoDao.atualiza(colecao);
+	}
+	*/
+	
+	@PUT
+	@Path("/usuarios/{usuario_id}")
+	public void atualizarColecao(@PathParam("usuario_id") Long usuario_id, Colecao colecao) {
+		colecao.setUsuario(new UsuarioDao().buscaPorld(usuario_id));
 		colecaoDao.atualiza(colecao);
 	}
 

@@ -27,11 +27,11 @@ public class ColecaoDao extends JpaDaoBase<Colecao> implements IDao<Colecao>{
 			return new Unidades(unidades);
 		return null;
 	}*/
-	public ColecoesUnidades buscaUltimasColecoes2() {		
+	public ColecoesUnidades buscaUltimasColecoes2(Long usuario_id) {		
 		TypedQuery<ColecaoUnidade> consulta = em.createQuery(
-				"SELECT NEW br.com.iremember.model.ColecaoUnidade(c.nome, u.numero) FROM Unidade u INNER JOIN u.colecao c ", 
+				"SELECT NEW br.com.iremember.model.ColecaoUnidade(c.nome, u.numero) FROM Unidade u INNER JOIN u.colecao c Where c.usuario = :usuario", 
 				ColecaoUnidade.class
-				);
+				).setParameter("usuario", new UsuarioDao().buscaPorld(usuario_id));
 		List<ColecaoUnidade> colecoesUnidades = consulta.getResultList();
 		
 		if (!colecoesUnidades.isEmpty())

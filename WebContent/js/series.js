@@ -130,13 +130,15 @@ function carregarSerieParaEdicao(nome) {
 }
 
 function salvarAlteracoes(){
+	var usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
+	
 	var data = $("#editarSerieForm").serializeJSON();
 	data = "{\"serie\":" + JSON.stringify(data) + "}";	
 	
 	$(".square").show();
 			
 	$.ajax({
-	   url : hostSeries + 'series/',
+	   url : hostSeries + 'series/usuario/' + usuarioLogado.id,
 	   type : 'PUT',
 	   contentType : 'application/json',
 	   data : data,
